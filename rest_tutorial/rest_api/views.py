@@ -3,10 +3,12 @@ from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets ,status
 from rest_framework import permissions
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view ,authentication_classes ,permission_classes
 from rest_api.serializers import UserSerializer, GroupSerializer, ItemSeriealizer
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 
 
@@ -28,6 +30,8 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 @api_view (['POST'])
+@authentication_classes([TokenAuthentication])
+@permission_classes([IsAuthenticated])
 def add_item(request):
     serializer = ItemSeriealizer(data=request.data)
     if serializer.is_valid():

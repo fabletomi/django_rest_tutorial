@@ -17,16 +17,17 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 from rest_framework import routers
-from rest_api import views
+from rest_api.views import UserViewSet,GroupViewSet ,add_item
+from rest_framework.authtoken import views
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'groups', GroupViewSet)
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('add_item/',views.add_item)
+    path('api-token-auth/', views.obtain_auth_token, name='api-token-auth'),
+    path('add_item/', add_item)
 ]

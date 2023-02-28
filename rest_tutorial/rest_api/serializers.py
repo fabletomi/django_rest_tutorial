@@ -16,4 +16,4 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class ItemSeriealizer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
-        fields = ['ItemID','ItemName', 'Price', 'Quantity', 'Category']
+        fields = ['ItemId','ItemName', 'Price', 'Quantity', 'Category']
