@@ -1,12 +1,12 @@
 from django.shortcuts import render
 
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+from rest_framework import viewsets ,status
 from rest_framework import permissions
 from rest_framework.decorators import api_view
-from rest_api.serializers import UserSerializer, GroupSerializer
+from rest_api.serializers import UserSerializer, GroupSerializer, ItemSeriealizer
 from rest_framework.authtoken.models import Token
-
+from rest_framework.response import Response
 
 
 
@@ -28,4 +28,10 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 @api_view (['POST'])
-def add_item(request)
+def add_item(request):
+    serializer = ItemSeriealizer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response({"Status":"Added"},status=status.HTTP_201_CREATED)
+    
+    return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)

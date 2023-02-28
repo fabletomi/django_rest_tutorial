@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from rest_tutorial.models import Item
+from rest_api.models import Item
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
@@ -16,4 +16,4 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 class ItemSeriealizer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Item
-        fields = ['ItemID','ItemName', 'Price', 'Quantity' ]
+        fields = ['ItemID','ItemName', 'Price', 'Quantity', 'Category']
